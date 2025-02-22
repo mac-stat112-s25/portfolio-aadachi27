@@ -1,0 +1,79 @@
+---
+title: "Effective Viz"
+format: html
+---
+
+## Exercise 1: Professionalism
+
+### Part A
+
+```{r}
+# Load tidyverse package for plotting and wrangling
+library(tidyverse)
+
+# Import the data
+weather <- read.csv("https://mac-stat.github.io/data/weather_3_locations.csv") |> 
+  mutate(date = as.Date(date))
+
+ggplot(weather, aes(y = temp3pm, x = temp9am, color = location)) + 
+  geom_point() + 
+  labs(x = "Temperature(Celsius) at 9am", y = "Temperature(Celsius) at 3pm", title = "Temperature at 3pm vs 9am", color = "Location")  
+```
+
+### Part B
+
+```{r}
+#| fig-cap: "Dot plot comparing temperatures in degrees celsius at 3pm versus 9am, across three different locations."
+
+# Load tidyverse package for plotting and wrangling
+library(tidyverse)
+
+# Import the data
+weather <- read.csv("https://mac-stat.github.io/data/weather_3_locations.csv") |> 
+  mutate(date = as.Date(date))
+
+ggplot(weather, aes(y = temp3pm, x = temp9am, color = location)) + 
+  geom_point() + 
+  labs(x = "Temperature(Celsius) at 9am", y = "Temperature(Celsius) at 3pm", color = "Location")
+```
+
+## Exercise 2: Accessibility
+
+### Part A
+
+```{r}
+#| fig-cap: "Density plots of 3pm temperatures in 3 Australian locations. Source: https://mac-stat.github.io/data/weather_3_locations.csv"
+#| fig-alt: "Density plot showing the 3pm temperatures at three Australian locations: Hobart, Uluru, and Wollongong. The temperatures are most consistent at Wollongong and most varied at Uluru. The highest temperatures tend to be at Uluru, and the lowest are mostly at Hobart."
+
+ggplot(weather, aes(x = temp3pm, fill = location)) + 
+  geom_density(alpha = 0.5) + 
+  labs(x = "3pm temperature (Celsius)")  
+```
+
+### Part B
+
+There are several types of colorblindness that would make this graph much more difficult to interpret because the colors can become indistinguishible from each other, which then means that the viewer won't be able to accurately read which density curve corresponds to which location. 
+
+### Part C
+
+```{r}
+ggplot(weather, aes(x = temp3pm, fill = location)) + 
+  geom_density(alpha = 0.5) + 
+  labs(x = "3pm temperature (Celsius)") + 
+  scale_fill_viridis_d()    
+```
+
+```{r}
+# In the color scale line:
+# Change "fill" to "color" since we use color in the aes()
+# Change "d" (discrete) to "c" (continuous) since maxtemp is on a continuous scale
+ggplot(weather, aes(y = temp3pm, x = temp9am, color = maxtemp)) + 
+  geom_point(alpha = 0.5) + 
+  labs(x = "3pm temperature (Celsius)") + 
+  scale_color_viridis_c()
+```
+
+## Exercise 3: Ethics
+
+### Part A
+This climate change plot is misleading because the scale was purposely chosen to obscure any recognizable pattern in the data. The scale of the y-axis does not fit the data. While it is true that the average annual global temperature has increased less than 5 degrees Fahrenheit from 1880-2015, the graph doesn't allow you to notice that the relative increase during the 20th-21st century is much greater than the increase over the previous years. Furthermore, the scale of the graph implies that anywhere from 0-110 degrees Fahrenheit is even possible to record while life still exists, which it isn't. In reality, even just a few degrees Fahrenheit makes a huge difference to the climate and the global ecosystem.

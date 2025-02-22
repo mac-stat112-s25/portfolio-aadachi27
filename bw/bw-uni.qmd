@@ -3,3 +3,22 @@ title: "Univariate Viz"
 ---
 
 Use this file to generate a professional looking **univariate** visualization. The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+#| fig-cap: "Histogram of students' favorite spots to hang out at. Source: https://hash-mac.github.io/stat112site-s25/data/survey.csv"
+#| fig-alt: "Histogram of students' favorite spots to hang out at: a beach, a city, a forest, a prairie, or the mountains. Data derived from a survey. The most common favorite hangout spot is a city, with 21 students, and the least common is a prairie with 3. Source: https://hash-mac.github.io/stat112site-s25/data/survey.csv."
+
+survey <- read.csv("https://hash-mac.github.io/stat112site-s25/data/survey.csv")
+
+library(tidyverse)
+
+ggplot(survey, aes(x = hangout)) + 
+  geom_bar(fill = "#A60067", color = "#360A14") + 
+  labs(
+    x = "Favorite Hangout Spot", 
+    y = "Number of Students", 
+    title = "Favorite Hangout Spots of Surveyed Students", 
+    caption = "Made by Annabelle Adachi"
+    )
+```
+

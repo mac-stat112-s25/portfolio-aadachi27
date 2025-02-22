@@ -3,3 +3,89 @@ title: "Mulivariate Viz"
 ---
 
 Use this file for practice with the **mulivariate viz** in-class activity.  Refer to the class website for details.
+
+## Exercise 1: SAT Scores
+### Part A
+```{r}
+# Import and check out data
+library(tidyverse)
+education <- read.csv("https://mac-stat.github.io/data/sat.csv")
+head(education)
+
+ggplot(education, aes(x = sat)) + 
+  geom_density(fill = "pink")
+```
+
+### Part B
+According to the data plot:
+
+- range is approximately 830 - 1120
+- most common score approximately 900
+- spikes around 900 and 1030
+
+## Exercise 2: SAT Scores vs. Per Pupil Spending and SAT Scores vs. Teacher Salaries
+### Part A
+```{r}
+education <- read.csv("https://mac-stat.github.io/data/sat.csv")
+
+ggplot(education, aes(x = expend, y = sat)) + 
+  geom_point(shape = 5, color = "black") + 
+  geom_smooth(method = "lm", color = "pink", fill = "pink")
+
+ggplot(education, aes(x = salary, y = sat)) + 
+  geom_point(shape = 7) + 
+  geom_smooth(method = "lm", color = "pink", fill = "pink")
+```
+
+### Part B
+Surprisingly, there is a negative relationship between SAT scores and spending. The more a state spends on education per pupil, and the higher teachers' salaries are, the lower the scores are.
+
+## Exercise 3: SAT Scores vs. Per Pupil Spending *and* Teacher Salaries
+```{r}
+education <- read.csv("https://mac-stat.github.io/data/sat.csv")
+
+ggplot(education, aes(x = expend, y = sat, color = salary)) + 
+  geom_point(size = 3) + 
+  geom_smooth(method = "lm", color = "pink")
+```
+
+## Exercise 4: Another Way to Incorporate Scale
+```{r}
+ggplot(education, aes(y = sat, x = salary, color = cut(expend, 2))) + 
+  geom_point() + 
+  geom_smooth(se = FALSE, method = "lm")
+```
+
+The higher teachers' salaries are, the more is spent on education per student. The more is spent on education, and by correlation the higher teachers' salaries are, the lower the SAT scores are. 
+
+## Exercise 5: Finally an Explanation
+### Part A
+```{r}
+ggplot(education, aes(x = fracCat, fill = fracCat)) + 
+  geom_bar() + 
+  xlab("Fraction Who Take SAT")
+```
+
+### Part B
+```{r}
+ggplot(education, aes(x = sat, fill = fracCat, color = fracCat)) + 
+  geom_density(alpha = 0.5)
+
+ggplot(education, aes(x = sat, fill = fracCat)) +
+  geom_histogram(color = "black", binwidth = 50) +
+  facet_wrap(~fracCat)
+```
+
+In states with a higher percentage of students taking the SAT, the scores tend to be much lower, whereas in states with a lower percentage of students taking the SAT, the scores are higher. In the low and medium categories of SAT participation, the data is also much more even across the whole range, whereas the high-participation scores spike considerably at around 890. This makes sense in context because in places where less of the population takes the SAT, only those who do the best on the test are the ones taking it. 
+
+### Part C
+```{r}
+ggplot(education, aes(x = expend, y = sat, color = fracCat)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+This graphic shows that when states with similar participation rates are compared to each other(eliminating the effect that the participation rate will have on the data), there is a slight increase in SAT scores when the money spent on education increases.
+
+### Part D
+It appeared as if SAT scores were decreasing before the fracCat variable was accounted for because in states where there is less funding for education and therefore less students take the SAT, only those who beleive they will get a high score take it, making it appear as though there is a correlation between lower spending and higher SAT scores.

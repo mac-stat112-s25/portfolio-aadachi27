@@ -3,3 +3,50 @@ title: "Spatial Viz"
 ---
 
 Use this file to generate a professional looking **spatial** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+#| fig-cap: "Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Source: https://mac-stat.github.io/data/election_2020_county.csv."
+#| fig-alt: "Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Generally, counties where the Democratic candidate won in 2020 tend to have a higher median monthly cost of rent. Source: https://mac-stat.github.io/data/election_2020_county.csv."
+
+
+library(sf)
+library(maps)
+library(mosaic)
+library(socviz)
+data(county_map) 
+
+elections_by_counties <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+
+elections_by_counties <- elections_by_counties |> 
+  select(state_name, state_abbr, county_name, county_fips,
+          repub_pct_20, median_age, median_rent, winner_20) |> 
+  mutate(repub_20_categories = 
+           cut(repub_pct_20, 
+               breaks = seq(0, 100, by = 10),
+               labels = c("0-9", "10-19", "20-29", "30-39", "40-49",
+                          "50-59", "60-69", "70-79", "80-89", "90-100"),
+               include.lowest = TRUE))
+
+elections_by_counties <- elections_by_counties |> 
+  mutate(county_fips = as.character(county_fips)) |> 
+  mutate(county_fips = 
+           ifelse(nchar(county_fips) == 4, paste0("0", county_fips), county_fips))
+
+winner <- c(dem = "Democratic Winner", repub = "Republican Winner")
+
+ggplot(elections_by_counties, aes(map_id = county_fips, fill = median_rent)) +
+  geom_map(map = county_map) +
+  scale_fill_viridis_c() +
+  expand_limits(x = county_map$long, y = county_map$lat) +
+  theme_map() +
+  theme(legend.position = "right") + 
+  coord_equal() +
+  facet_wrap(~winner_20, labeller = labeller(winner_20 = winner)) +
+  labs(
+    title = "Median Rent vs. 2020 Election Results",
+    fill = "Median Rent Per Month (Dollars)",
+    caption = "Made by Annabelle Adachi"
+  )
+
+```
+

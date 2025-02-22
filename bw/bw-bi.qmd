@@ -3,3 +3,23 @@ title: "Bivariate Viz"
 ---
 
 Use this file to generate a professional looking **bivariate** visualization.  The visualization will not perfect the first time but you are expected to improve it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+#| fig-cap: "Dot plot of election results comparing the percentage of counties that voted for a Republican candidate in 2016 with the same figure in 2020. Source: https://mac-stat.github.io/data/election_2020_county.csv"
+#| fig-alt: "Dot plot of election results comparing the percentage of counties that voted for a Republican candidate in 2016 with the same figure in 2020. Source: https://mac-stat.github.io/data/election_2020_county.csv. The 2016 percentages are on the x-axis and the 2020 percentages are on the y-axis. The data shows a positive trendline, indicating a positive correlation between percentages of Republican votes in 2016 and similar percentages in 2020."
+
+library(tidyverse)
+
+elections <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(
+    x = "% Republican Votes 2016", 
+    y = "% Republican Votes 2020", 
+    title = "Percentage of Counties That Voted Republican in 2016 vs. 2020",
+    caption = "Made by Annabelle Adachi"
+    )
+```
+

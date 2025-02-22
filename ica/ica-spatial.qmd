@@ -3,3 +3,261 @@ title: "Spatial Viz"
 ---
 
 Use this file for practice with the **spatial viz** in-class activity.  Refer to the class website for details.
+
+## Exercise 1: A leaflet with markers/points
+```{r}
+fave_places <- read.csv("https://hash-mac.github.io/stat112site-s25/data/our_fave_places.csv")
+
+# Check it out
+head(fave_places)
+```
+
+### Part A
+```{r}
+# Load the leaflet package
+library(leaflet)
+
+# Just a plotting frame
+leaflet(data = fave_places)|>
+  addTiles()|>
+  addMarkers()
+  
+```
+
+## Exercise 2: Details
+```{r}
+# Load package needed to change color
+library(gplots)
+
+# We can add colored circles instead of markers at each location
+leaflet(data = fave_places) |> 
+  addTiles() |> 
+  addCircles(weight = 10, opacity = 1, color = "#a53860")|>
+  addProviderTiles("USGS")|>
+  addPolylines(lng = ~longitude, lat = ~latitude, color = "#450920")
+```
+
+## Exercise 3: Your Turn
+```{r}
+library(leaflet)
+library(tidyverse)
+# Import starbucks location data
+starbucks <- read.csv("https://mac-stat.github.io/data/starbucks.csv")
+
+head(starbucks)
+# Don't worry about the syntax
+starbucks_mn <- starbucks |>   
+  filter(State.Province == "MN")
+
+
+leaflet(data = starbucks_mn) |> 
+  addTiles() |> 
+  addCircles(weight = 5, opacity = 1, color = "#2ec4b6")|>
+  addProviderTiles("USGS")
+```
+
+## Exercise 3: A Simple Scatterplot
+```{r}
+ggplot(starbucks, aes(x = Longitude, y = Latitude)) +
+  geom_point(size = 0.2, alpha = 0.2, color = "#70e000")
+```
+
+## Exercise 4: Adding a Country-Level Background
+```{r}
+# Load the package
+library(rnaturalearth)
+library(tidyverse)
+starbucks <- read.csv("https://mac-stat.github.io/data/starbucks.csv")
+
+# Get info about country boundaries across the world
+# in a "sf" or simple feature format
+world_boundaries <- ne_countries(returnclass = "sf")
+
+# What does this code produce?
+# What geom are we using for the point map?
+ggplot(world_boundaries) + 
+  geom_sf()
+
+# Load package needed to change map theme
+library(mosaic)
+
+# Add a point for each Starbucks
+# NOTE: The Starbucks info is in our starbucks data, not world_boundaries
+# How does this change how we use geom_point?!
+ggplot(world_boundaries) + 
+  geom_sf() + 
+  geom_point(
+    data = starbucks,
+    aes(x = Longitude, y = Latitude),
+    alpha = 0.3, size = 0.2, color = "darkgreen"
+  ) +
+  theme_map()
+```
+
+This map demonstrates that there is the highest concentration of Starbucks locations in the United States, parts of Europe, eastern China, and Japan. 
+
+## Exercise 5: Zooming in on Some Countries
+```{r}
+# We'll learn this syntax soon! Don't worry about it now.
+starbucks_cma <- starbucks |> 
+  filter(Country %in% c('CA', 'MX', 'US'))
+
+cma_boundaries <- ne_states(
+  country = c("canada", "mexico", "united states of america"),
+  returnclass = "sf")
+
+# Just the boundaries
+ggplot(cma_boundaries) + 
+  geom_sf(color = "#afb600", fill = "#ffd400") +
+  geom_point(
+    data = starbucks_cma, aes(x = Longitude, y = Latitude), 
+    alpha = 0.3, size = 0.2, color = "#0087b1"
+  ) +
+  coord_sf(xlim = c(-179.14, -50))
+  theme_map()
+```
+
+## A State and County-Level Map
+```{r}
+starbucks_midwest <- starbucks |> 
+  filter(State.Province %in% c("MN", "ND", "SD", "WI"))
+
+# Load packages
+library(sf)
+library(maps)
+
+# Get the boundaries
+midwest_boundaries <- st_as_sf(
+  maps::map("county",
+            region = c("minnesota", "wisconsin", "north dakota", "south dakota"), 
+            fill = TRUE, plot = FALSE))
+
+ggplot(midwest_boundaries) + 
+   geom_sf(fill = "#CDC7E5", color = "#7776BC") + 
+   geom_point(
+     data = starbucks_midwest,
+     aes(x = Longitude, y = Latitude),
+     alpha = 0.7,
+     size = 0.5, 
+     color = "#FF674D"
+   ) + 
+   theme_map()
+```
+
+## Exercise 7: Contour Maps
+```{r}
+# What changed in the plot?
+# What changed in our code?!
+ggplot(cma_boundaries) + 
+  geom_sf() + 
+  geom_density_2d(
+    data = starbucks_cma,
+    aes(x = Longitude, y = Latitude),
+    size = 0.2,
+    color = "darkgreen"
+  ) +
+  coord_sf(xlim = c(-179.14, -50), ylim = c(14.54, 83.11)) +
+  theme_map()
+```
+
+## Exercise 8: State-Level Choropleth Maps
+```{r}
+elections_by_state <-  read.csv("https://mac-stat.github.io/data/election_2020_by_state.csv")
+elections_by_counties <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+
+# Don't worry about the code!
+
+elections_by_state <- elections_by_state |> 
+  filter(state_abbr != "DC") |> 
+  select(state_name, state_abbr, repub_pct_20) |> 
+  mutate(repub_20_categories = 
+           cut(repub_pct_20, 
+               breaks = seq(30, 70, by = 5), 
+               labels = c("30-34", "35-39", "40-44", "45-49",
+                          "50-54", "55-59", "60-64", "65-70"), 
+               include.lowest = TRUE))
+
+elections_by_counties <- elections_by_counties |> 
+  select(state_name, state_abbr, county_name, county_fips,
+          repub_pct_20, median_age, median_rent) |> 
+  mutate(repub_20_categories = 
+           cut(repub_pct_20, 
+               breaks = seq(0, 100, by = 10),
+               labels = c("0-9", "10-19", "20-29", "30-39", "40-49",
+                          "50-59", "60-69", "70-79", "80-89", "90-100"),
+               include.lowest = TRUE))
+
+starbucks_us <- starbucks |> 
+  filter(Country == "US")
+
+states_map <- map_data("state")
+
+library(RColorBrewer)
+
+# Note where the dataset, elections_by_state, is used
+# Note where the background map, states_map, is used
+ggplot(elections_by_state, aes(map_id = state_name, fill = repub_20_categories)) +
+  geom_map(map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  theme_map() +
+  scale_fill_manual(values = rev(brewer.pal(8, "RdBu")), name = "% Republican") +
+  geom_point(
+    data = starbucks_us,
+    aes(x = Longitude, y = Latitude),
+    size = 0.05,
+    alpha = 0.2,
+    inherit.aes = FALSE
+  )
+  
+```
+
+## Exercise 9: County-Level Choropleth Maps
+```{r}
+# Get the latitude and longitude coordinates of county boundaries
+library(socviz)
+data(county_map) 
+
+# Add 0's at the beginning of any fips_code that's fewer than 5 numbers long
+# Don't worry about the syntax
+elections_by_counties <- elections_by_counties |> 
+  mutate(county_fips = as.character(county_fips)) |> 
+  mutate(county_fips = 
+           ifelse(nchar(county_fips) == 4, paste0("0", county_fips), county_fips))
+
+ggplot(elections_by_counties, aes(map_id = county_fips, fill = repub_20_categories)) +
+  geom_map(map = county_map) +
+  scale_fill_manual(values = rev(brewer.pal(10, "RdBu")), name = "% Republican") +
+  expand_limits(x = county_map$long, y = county_map$lat) +
+  theme_map() +
+  theme(legend.position = "right") + 
+  coord_equal()
+
+```
+
+## Exercise 10: Play Around!
+```{r}
+library(socviz)
+data(county_map) 
+
+elections_by_counties <- elections_by_counties |> 
+  mutate(county_fips = as.character(county_fips)) |> 
+  mutate(county_fips = 
+           ifelse(nchar(county_fips) == 4, paste0("0", county_fips), county_fips))
+
+ggplot(elections_by_counties, aes(map_id = county_fips, fill = median_age)) +
+  geom_map(map = county_map) +
+  scale_fill_gradientn(colors = c("#FFD166", "#3D3B8E"), name = "Median Age") +
+  expand_limits(x = county_map$long, y = county_map$lat) +
+  theme_map() +
+  theme(legend.position = "right") + 
+  coord_equal()
+
+ggplot(elections_by_counties, aes(map_id = county_fips, fill = median_rent)) +
+  geom_map(map = county_map) +
+  scale_fill_gradientn(colors = c("#D3FFF3", "#7F0799"), name = "Median Rent") +
+  expand_limits(x = county_map$long, y = county_map$lat) +
+  theme_map() +
+  theme(legend.position = "right") + 
+  coord_equal()
+```
+

@@ -1,0 +1,32 @@
+---
+title: "reading"
+format: html
+---
+
+```{r}
+# Load tidyverse package for plotting and wrangling
+library(tidyverse)
+
+# Import the data and only keep 2 addresses
+energy <- read.csv("https://mac-stat.github.io/data/MacNaturalGas.csv") |> 
+  mutate(date = as.Date(paste0(month, "/1/", year), "%m/%d/%Y")) |> 
+  filter(address != "c")
+
+ggplot(energy, aes(x = month, y = therms, color = address)) +
+  geom_point(size = 2) +
+  facet_wrap(~year)
+
+ggplot(energy, aes(x = date, y = therms, color = address)) +
+  geom_point(size = 2) +
+  facet_wrap(~address)
+
+ggplot(energy, aes(x = date, y = therms, color = renovated)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm")
+
+ggplot(energy, aes(x = date, y = therms, color = renovated)) +
+  geom_point(size = 2) +
+  facet_wrap(~month) +
+  geom_smooth(method = "lm")
+```
+

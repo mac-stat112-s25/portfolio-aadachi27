@@ -3,3 +3,79 @@ title: "Bivariate Viz"
 ---
 
 Use this file for practice with the **bivariate viz** in-class activity.  Refer to the class website for details.
+
+```{r}
+# Load data
+elections <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+
+# Check it out
+head(elections)
+```
+
+## Exercise 0: Review
+### Part A
+Guess: The Republican candidate probably won around 45% of the 3000 total counties in 2020.
+
+```{r}
+# Load data
+elections <- read.csv("https://mac-stat.github.io/data/election_2020_county.csv")
+
+library(tidyverse)
+
+ggplot(elections, aes(x = winner_20)) + 
+  geom_bar()
+```
+
+Follow-Up Questions: 
+- How did the number of counties won by republicans change from one election year to another?
+- What is the distribution of county winners across different states?
+
+## Exercise 1: Quantitative vs. Quantitative Intuition Check
+To replicate using ggplot:
+- info needed: repub_pct_16 and repub_pct_20
+- geom_dotplot could represent this data.
+
+## Exercise 2: Quantitative Variables
+```{r}
+# Set up the plotting frame
+# showing two variables, one on x-axis and y-axis, instead of one variable on x-axis and count on the y-axis
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16))
+
+# Add a layer of points for each county
+# creating a dot plot
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_point()
+
+# Change the shape of the points
+# variety of possible shapes depending on what number is entered
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_point(shape = 15)
+
+# YOU TRY: Modify the code to make the points "orange"
+# NOTE: Try to anticipate if "color" or "fill" will be useful here. Then try both.
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_point(shape = 5, color = "orange")
+
+# Add a layer that represents each county by the state it's in
+# Take note of the geom and the info it needs to run!
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_text(aes(label = state_abbr, color = state_abbr))
+```
+
+## Exercise 3: Reflect
+There is a strong relationship between Republican support in 2016 and 2020. There is a positive correlation between state percentages of Republican support in 2016 and 2020. There seem to be a couple of outliers for some counties in Texas that increased support for the Republican candidate in 2020 in comparison to 2016, rather than following the overall trendline of staying roughly the same.
+
+## Exercise 4: Visualizing the Trend
+```{r}
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_point() +
+  geom_smooth()
+
+# smooth model but no individual points
+ggplot(elections, aes(y = repub_pct_20, x = repub_pct_16)) +
+  geom_point() +
+  geom_smooth()
+```
+
+
+

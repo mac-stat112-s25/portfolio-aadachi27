@@ -3,3 +3,29 @@ title: "Quadvariate Viz"
 ---
 
 Use this file to generate a professional looking **quadvariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+#| fig-cap: "Dot plot showing humidity at 3pm vs. temperature in degrees Celsius at 3pm vs. wind speed in kilometers per hour at 3pm, at three separate Australian locations: Hobart, Uluru, and Wollongong. Source: https://mac-stat.github.io/data/weather_3_locations.csv."
+#| fig-alt: "Dot plot showing humidity at 3pm vs. temperature in degrees Celsius at 3pm vs. wind speed in kilometers per hour at 3pm, at three separate Australian locations: Hobart, Uluru, and Wollongong. All three locations show a negative trendline demonstrating a correlation between higher humidity and lower temperatures, although the trendline was only slightly downturned at the Wollongong location. The Hobart location had the lowest temperatures and the Uluru location had the highest temperatures. The Uluru location had mostly low humidity while the other two locations were more evenly distributed. The Wollongong location had higher wind speeds than the other two locations. Source: https://mac-stat.github.io/data/weather_3_locations.csv."
+
+
+library(tidyverse)
+
+weather <- read.csv("https://mac-stat.github.io/data/weather_3_locations.csv") |> 
+  mutate(date = as.Date(date))
+
+ggplot(weather, aes(x = humidity3pm, y = temp3pm, color = windspeed3pm)) + 
+  geom_point() +
+  facet_grid(~location) +
+  geom_smooth(method = "lm") +
+  scale_color_viridis_c() +
+  labs(
+    title = "3pm Humidity vs. Temperature vs. Wind Speed at Three Locations",
+    x = "Humidity Level",
+    y = "Temperature (Celsius)",
+    color = "Wind Speed (km/hr)",
+    caption = "Made by Annabelle Adachi"
+  )
+
+```
+

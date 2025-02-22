@@ -3,3 +3,25 @@ title: "Trivariate Viz"
 ---
 
 Use this file to generate a professional looking **trivariate** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.
+
+```{r}
+#| fig-cap: "Dot plot of state spending per pupil in thousands of dollars versus average total SAT score by state, faceted by the percentage of student participation in the SAT. Source: https://mac-stat.github.io/data/sat.csv."
+#| fig-alt: "Dot plot of state spending per pupil in thousands of dollars versus average total SAT score by state, faceted by the percentage of student participation in the SAT. The facets are separated into three categories: 0-15% participation in SAT, 15-45% participation, and 45-100% participation. All three categories show a positive correlation between higher spending and higher SAT scores, as demonstrated by trendlines. Source: https://mac-stat.github.io/data/sat.csv."
+
+library(tidyverse)
+
+education <- read.csv("https://mac-stat.github.io/data/sat.csv")
+
+ggplot(education, aes(x = expend, y = sat, color = fracCat)) +
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  labs(
+    x = "State Expenditure Per Student in Thousands of Dollars",
+    y = "Average Total SAT Score",
+    title = "Effect of State Spending on SAT Scores, Separated by Test Participation",
+    color = "% of Students Who Took SAT",
+    caption = "Made by Annabelle Adachi"
+  ) +
+  scale_color_viridis_d()
+```
+
