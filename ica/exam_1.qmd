@@ -1,0 +1,64 @@
+---
+title: "Exam 1"
+format: html
+---
+
+
+## Get Data
+
+```{r}
+tuesdata <- tt_load('2020-02-18')
+
+food_consumption <- tuesdata[["food_consumption"]]
+head(food_consumption)
+
+```
+
+## Understand Consumption
+
+```{r}
+# total consumption by country
+food_consumption |>
+  group_by(country) |>
+  summarise(total_consumption = sum(consumption)) |>
+  arrange(desc(total_consumption)) |>
+  head(10) |>
+  ggplot(aes(x = country, y = total_consumption, fill = country)) +
+  geom_col()
+
+# total consumption by food category
+food_consumption |>
+  group_by(food_category) |>
+  summarise(total_consumption = sum(consumption)) |>
+  arrange(desc(total_consumption)) |>
+  head(10) |>
+  ggplot(aes(x = food_category, y = total_consumption, fill = food_category)) +
+  geom_col()
+
+```
+
+## Grand Research Question
+
+What does the consumption of each food category in each country look like? 
+
+```{r}
+#| fig-height: 25
+#| fig-width: 45
+
+food_consumption |>
+  select(-co2_emmission) |>
+  group_by(country) |>
+  ggplot(aes(x = country, y = consumption, fill = food_category)) +
+  geom_col() +
+  labs(x = "Country", y = "Consumption", fill = "Food Category") +
+  theme(axis.text.x = element_text(angle = 80, size = 24), 
+        axis.title.x = element_text(size = 40),
+        axis.text.y = element_text(size = 24),
+        axis.title.y = element_text(size = 40),
+        legend.position = "bottom", 
+        legend.text = element_text(size = 36), 
+        legend.title = element_text(size = 40), 
+        legend.title.position = "left") +
+  scale_fill_viridis_d()
+```
+

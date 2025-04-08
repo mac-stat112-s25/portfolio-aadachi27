@@ -1,0 +1,108 @@
+---
+title: "ica-strings"
+format: html
+---
+
+# Exercise 1: Time Slots
+
+```{r}
+library(tidyverse)
+courses <- read.csv("https://mac-stat.github.io/data/registrar.csv")
+```
+
+```{r}
+# Construct a table that indicates the number of classes offered in each day/time slot
+# Print only the 6 most popular time slots
+courses |>
+  count(time) |>
+  arrange(desc(n)) |>
+  head(6)
+```
+
+# Exercise 2: Prep the Data
+
+```{r}
+courses_clean <- courses |>
+  separate(avail_max, c("avail", "max"), sep = " / ") |>
+  mutate(avail = as.numeric(avail), max = as.numeric(max)) |>
+  mutate(enroll = max - avail) |>
+  separate(number, c("dept", "num_section"), sep = " ") |>
+  separate(num_section, c("number", "section"), sep = "-") 
+```
+
+# Exercise 3: Courses by Department
+
+```{r}
+# Identify the 6 departments that offered the most sections
+courses_clean |>
+  group_by(dept) |>
+  count(section) |>
+  summarise(total_sections = sum(n)) |>
+  slice_max(order_by = total_sections, n = 6)
+
+# Identify the 6 departments with the longest average course titles
+```
+
+# Exercise 4: STAT Courses
+
+## Part A
+
+```{r}
+courses_clean |>
+  filter(instructor == "Alicia Johnson")
+```
+
+## Part B
+
+```{r}
+stat <- courses_clean |>
+  filter(dept == "STAT") |>
+  mutate(name = str_replace(name, "Introduction to ", "")) |>
+  mutate(name = str_replace(name, "Statistical", "Stat")) |>
+  mutate(start_time = str_sub(time, 1, 5)) |>
+  select(number, name, start_time, enroll)
+```
+
+# Exercise 5: More Cleaning
+
+```{r}
+enrollments <- courses_clean |>
+  filter(dept != "PE",
+         dept != "INTD") |>
+  filter(!(dept == "MUSI" & as.numeric(number) < 100)) |>
+  filter(!str_detect(section, "L"))
+```
+
+# Exercise 6: Enrollment & Departments
+
+```{r}
+# How do the number of courses offered in each department compare to each other?
+enrollments |>
+  group_by(dept) |>
+  count() |>
+  ggplot(aes(y = fct_reorder(dept, n, .fun = sum), x = n)) +
+  geom_col()
+```
+
+# Exercise 7: Enrollment & Faculty
+
+```{r}
+enrollments |>
+  filter(dept %in% c("STAT", "COMP"), number == 112, section == "01")
+
+enrollments_2 <- enrollments |> 
+  distinct(days, time, instructor, .keep_all = TRUE)
+
+enrollments_2 |> 
+  filter(instructor == "Brianna Heggeseth", name == "Introduction to Data Science")
+```
+```{r}
+# Which professors have the most total enrollments across all their classes?
+enrollments |>
+  group_by(instructor) |>
+  summarise(total_enroll = sum(enroll)) |>
+  slice_max(order_by = total_enroll, n = 10) |>
+  ggplot(aes(x = total_enroll, y = fct_reorder(instructor, total_enroll, .fun = sum))) +
+  geom_col()
+```
+

@@ -1,0 +1,244 @@
+---
+title: "Dates"
+format: html
+---
+
+## Exercise 1
+
+### Part A
+
+```{r}
+library(tidyverse)
+penguins <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-28/penguins.csv')
+
+penguins |>
+  filter(species %in% c("Adelie", "Chinstrap")) |>
+  count(species)
+
+penguins |>
+  filter(species != "Gentoo") |>
+  count(species)
+```
+
+### Part B
+```{r}
+penguins_w_body_mass <- penguins |>
+  filter(!is.na(body_mass_g))
+
+nrow(penguins)
+nrow(penguins_w_body_mass)
+
+penguins_complete <- penguins |>
+  na.omit()
+
+nrow(penguins_complete)
+```
+
+### Part C
+na.omit() should only be used in very specific circumstances because it eliminates data sets with *any* NA values, so it can eliminate useful data. If a data point is NA for only one variable and we aren't looking at that, na.omit() will take it out and slightly skew our data for a reason that wouldn't have affected the observations we're looking for. NA values should for the most part only be omitted when they are in columns we aren't using.
+
+## Exercise 2
+
+```{r}
+names(penguins)
+
+# Use a shortcut to keep everything but the year and island variables
+
+penguins |>
+  select(-year, -island)
+
+# Use a shortcut to keep only species and the penguin characteristics measured in mm
+
+penguins |>
+  select(species, contains("mm"))
+
+# Use a shortcut to keep only species and bill-related measurements
+
+penguins |>
+  select(species, contains("bill"))
+
+# Use a shortcut to keep only species and the length-related characteristics
+
+penguins |>
+  select(species, contains("length"))
+```
+
+## Exercise 3
+
+```{r}
+# Change this code to sort the penguins by species, and then island name
+# NOTE: The first row should be an Adelie penguin living on Biscoe island
+penguins |> 
+  arrange(species) |>
+  arrange(island)
+
+# Change this code to count the number of male/female penguins observed for each species
+penguins |> 
+  count(species, sex)
+
+# Change this code to calculate the average body mass by species and sex
+penguins |> 
+  group_by(species) |> 
+  summarize(mean = mean(body_mass_g, na.rm = TRUE))
+```
+
+## Exercise 4: Dates
+
+```{r}
+# Get today's date
+as.Date(today())
+
+# Let's store this as "today" so we can work with it below
+today <- as.Date(today())
+
+# Check out the class of this object
+class(today)
+
+# year of today's date
+year(today)
+
+# month number of today's date
+month(today)
+
+# month name of today, shows levels - order - of different months
+month(today, label = TRUE)
+
+# week number out of year of today
+week(today)
+
+# day number of the month of today
+mday(today)
+
+# day number of the year of today
+yday(today)  
+
+# day number of the week of today
+wday(today)
+
+# abbr. day of the week of today with levels/order of days of the week
+wday(today, label = TRUE)
+
+# is today after or equal to 2/14 true or false, is today before 2/14 true or false
+today >= ymd("2024-02-14")
+today < ymd("2024-02-14")
+```
+
+## Exercise 5: Warming Up
+
+```{r}
+library(mosaic)
+data("Birthdays")
+head(Birthdays)
+
+# How many days of data do we have for each state?
+Birthdays |>
+  filter(state == "CA") |>
+  nrow()
+
+# How many total births were there in this time period?
+Birthdays |>
+  summarise(sum(births))
+
+# How many total births were there per state in this time period, sorted from low to high?
+Birthdays |>
+  group_by(state) |>
+  summarise(total = sum(births)) |>
+  arrange(total)
+
+```
+
+## Exercise 6: Homework Reprise
+
+```{r}
+daily_births <- Birthdays |>
+  group_by(date, wday) |>
+  summarise(total_births = sum(births))
+
+ggplot(daily_births, aes(x = date, y = total_births, color = wday)) +
+  geom_point() +
+  scale_fill_viridis_d() +
+  labs(title = "US Births Per Day Over Time", x = "Date", y = "Number of Births", color = "Day of the Week")
+```
+
+## Exercise 7: Wrangle & Plot
+
+### Part A
+
+```{r}
+# total births for each month/year Jan 1969, plot births by month
+month_year_births <- daily_births |>
+  mutate(year = year(date)) |>
+  mutate(month = month(date, label = TRUE)) |>
+  mutate(date = paste(month, year)) |>
+  group_by(date, month) |>
+  summarise(all_births = sum(total_births))
+
+ggplot(month_year_births, aes(x = date, y = all_births, color = month)) +
+  geom_point()
+
+```
+
+There doesn't seem to be any connection between the month or year and the total number of births. 
+
+### Part B
+
+```{r}
+# 1988 births per week for each state
+births_1988 <- Birthdays |>
+  filter(year == 1988) |>
+  mutate(week = week(date)) |>
+  filter(week != 53) |>
+  group_by(week, state) |>
+  summarise(births_per_week = sum(births))
+  
+ggplot(births_1988, aes(x = week, y = births_per_week, color = state)) +
+  geom_line()
+
+ggplot(births_1988, aes(x = week, y = births_per_week)) +
+  geom_line() +
+  facet_wrap(~state)
+```
+
+Looking at the graphs with the states differentiated by color and by facets, states like California, Texas, and New York have the highest birth rates, with California as the main outlier. They are higher populated states so it makes sense that their birth rates are higher. There is a slight spike around week 35-40, and this pattern is most recognizable among states with higher births per week, but there aren't any other clear patterns.
+
+### Part C
+
+```{r}
+Birthdays |>
+  filter(year == 1988) |>
+  filter(state == c("MN", "LA")) |>
+  mutate(week = week(date)) |>
+  filter(week != 53) |>
+  group_by(week, state) |>
+  summarise(births_per_week = sum(births)) |>
+  ggplot(aes(x = week, y = births_per_week, color = state)) +
+  geom_line()
+```
+
+These two states have pretty much identical birthrate patterns. During the first ten weeks of the year and the latter half of the year Louisiana has a consistently higher birth rate. 
+
+## Exercise 8
+
+### Part A
+
+```{r}
+births_MA <- Birthdays |>
+  filter(state == "MA") |>
+  filter(year == 1979) |>
+  arrange(desc(births))
+
+```
+
+### Part B
+
+```{r}
+Birthdays |>
+  filter(year == "1979") |>
+  filter(month == "9") |>
+  filter(day == c("9", "10", "11", "12")) |>
+  group_by(state) |>
+  summarise(total = sum(births)) |>
+  arrange(desc(total)) |>
+  head(5)
+```
+

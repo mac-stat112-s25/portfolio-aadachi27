@@ -1,0 +1,109 @@
+---
+title: "Exam 2"
+format: html
+---
+
+```{r}
+library(tidytuesdayR)
+library(tidyverse)
+library(rnaturalearth)
+library(sf)
+```
+
+```{r}
+tuesdata <- tt_load('2020-02-18')
+fc <- tuesdata[["food_consumption"]]
+```
+
+## Fix food_category Variable
+
+```{r}
+fc <- fc |>
+  mutate(food_category = fct_recode(food_category, 
+                                    "Lamb" = "Lamb & Goat",
+                                    "Dairy" = "Milk - inc. cheese",
+                                    "Wheat" = "Wheat and Wheat Products",
+                                    "Nuts" = "Nuts inc. Peanut Butter")) 
+```
+
+## Research Question 1: Most Consuming Countries
+
+```{r}
+fc |>
+  select(-co2_emmission) |>
+  group_by(country) |>
+  summarise(consumption = sum(consumption)) |>
+  arrange(desc(consumption)) |>
+  head(5) 
+```
+
+```{r}
+fc |>
+  select(-co2_emmission) |>
+  group_by(country) |>
+  summarise(consumption = sum(consumption)) |>
+  arrange(desc(consumption)) |>
+  head(5) |>
+  ggplot(aes(x = country, y = consumption, fill = country)) +
+  geom_col() +
+  
+  labs(title = "Top 5 Consuming Countries", x = "Country", y = "Total Consumption", fill = "Country")
+```
+
+## Research Question 2: Most Consuming Countries of Each Food
+
+```{r}
+fc |>
+  select(-co2_emmission) |>
+  group_by(food_category, country) |>
+  summarise(consumption = sum(consumption)) |>
+  slice_max(order_by = consumption, n = 5)
+```
+
+```{r}
+#| fig-height: 10
+#| fig-width: 20
+
+fc |>
+  select(-co2_emmission) |>
+  group_by(food_category, country) |>
+  summarise(consumption = sum(consumption)) |>
+  slice_max(order_by = consumption, n = 5) |>
+  ggplot(aes(y = country, x = consumption)) +
+  geom_col() +
+  facet_wrap(~food_category, scales = "free")
+```
+
+## Research Question 3: Food Consumption
+
+```{r}
+#| fig-height: 30
+#| fig-width: 30
+
+ne_countries(returnclass = "sf") |>
+  select(name, geometry) |>
+  mutate(name = ifelse(name == "United States of America", "USA", name)) |>
+  mutate(name = ifelse(name == "Bosnia and Herz.", "Bosnia and Herzegovina", name)) |>
+  mutate(name = ifelse(name == "Czechia", "Czech Republic", name)) |>
+  mutate(name = ifelse(name == "Taiwan", "Taiwan. ROC", name)) |>
+  left_join(
+    fc |>
+      select(-co2_emmission) |>
+      group_by(food_category) |>
+      mutate(consumption = (consumption - mean(consumption))/sd(consumption)), join_by(name == country)) |>
+  pivot_wider(names_from = food_category, values_from = consumption) |>
+  select(-"NA") |>
+  pivot_longer(cols = c(-name, -geometry),
+               names_to = "food_category",
+               values_to = "consumption") |>
+  ggplot() +
+  geom_sf(aes(fill = consumption)) +
+  facet_wrap(~food_category) +
+  theme(legend.position = "bottom") +
+  scale_fill_viridis_c() +
+  labs(title = "Food Category Consumption Levels by Country", fill = "Consumption Level") +
+  theme(title = element_text(size = 40),
+        legend.text = element_text(size = 20),
+        strip.text = element_text(size = 40))
+```
+

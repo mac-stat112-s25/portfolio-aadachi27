@@ -1,0 +1,58 @@
+---
+title: "Solo Project"
+format: html
+---
+
+```{r}
+library(sf)
+library(tidyverse)
+```
+# Getting the Data
+
+```{r}
+income <- read_csv("~/Documents/GitHub/portfolio-aadachi27/HDPulse_data_export1.csv")
+
+# removing the rows at the bottom which don't have data, just notes on the data
+income <- income |>
+  na.omit()
+
+```
+
+# Getting Geographic Data
+
+```{r}
+ca_counties <- read_sf("~/Documents/GitHub/portfolio-aadachi27/ca_boundary_data/cnty19_1.shp")
+```
+
+# Making the Map
+
+```{r}
+ggplot(ca_counties) + 
+   geom_sf(fill = "#FBCAEF", color = "#48304D") 
+
+```
+
+# Joining the Datasets
+
+```{r}
+income <- income |>
+  mutate(County = str_replace(County, " County", ""))
+
+join_counties_income <- ca_counties |>
+  full_join(income, join_by(COUNTY_NAM == County))
+
+```
+
+# Building the Choropleth Map
+
+```{r}
+#| fig-cap: "Choropleth map showing California median household income by county. The counties with the highest median household income are centered around San Francisco. Geographic data from https://gis.data.ca.gov/datasets/CALFIRE-Forestry::california-county-boundaries/explore. Household income data from https://hdpulse.nimhd.nih.gov. Visualization made by Annabelle Adachi."
+
+ggplot(join_counties_income) +
+  geom_sf(aes(fill = Dollars)) +
+  scale_fill_gradientn(name = "Median Household Income(Dollars)",
+                       colors = c("#028090", "#00A896", "#F0F3BD")) +
+  labs(title = "California Median Household Income by County")
+```
+
+

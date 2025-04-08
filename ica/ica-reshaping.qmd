@@ -1,0 +1,220 @@
+---
+title: "Reshaping"
+format: html
+---
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+## Exercise 1: What's the problem?
+
+```{r}
+sleep_wide <- read.csv("https://mac-stat.github.io/data/sleep_wide.csv")
+
+head(sleep_wide)
+```
+
+### Part A
+
+The units of observation are people who participated in the sleep study.
+
+### Part B
+
+columns: subject, reaction time, day number
+
+pivot_longer()
+
+## Exercise 2: Pivot Longer
+
+### Part A 
+
+```{r}
+library(data.table)
+library(tidyr)
+
+sleep_long <- sleep_wide |>
+  pivot_longer(cols = -Subject, names_to = "Day", values_to = "reaction_time")
+```
+
+### Part B
+
+```{r}
+sleep_long <- sleep_wide |>
+  pivot_longer(cols = -Subject,
+               names_to = "day",
+               names_prefix = "day_",
+               values_to = "reaction_time")
+
+head(sleep_long)
+```
+
+The 'names_prefix' value took away the 'day_' from the values in the day column so they're just numbers.
+
+### Part C
+
+```{r}
+ggplot(sleep_long, aes(x = day, y = reaction_time, color = Subject)) +
+  geom_line()
+```
+
+'day' is a character, and it would work better if it were an integer, and 'Subject' is an integer and it would work better if it were a character. The numerical value of the subject is irrelevant, each subject just needs to be differentiated in some way; whereas the days of the week should correspond to their numerical order.
+
+## Exercise 3: Changing Variable Classes & Plotting
+
+```{r}
+sleep_long <- sleep_wide |>
+  pivot_longer(cols = -Subject,
+               names_to = "day",
+               names_prefix = "day_",
+               values_to = "reaction_time") |> 
+  mutate(Subject = as.factor(Subject), day = as.numeric(day))
+
+# Check it out
+# Same data, different class
+head(sleep_long)
+```
+
+### Part A
+
+```{r}
+# Make a line plot of reaction time by day for each subject
+# Put these all on the same frame
+ggplot(sleep_long, aes(x = day, y = reaction_time, color = Subject)) +
+  geom_line() 
+
+# Make a line plot of reaction time by day for each subject
+# Put these all on separate frames (one per subject)
+ggplot(sleep_long, aes(x = day, y = reaction_time)) +
+  geom_line() +
+  facet_wrap(~Subject) +
+  geom_smooth()
+```
+
+### Part B
+
+While there is a lot of variation from subject to subject, for the most part there is a positive relationship between days since sleep and reaction time, meaning the less sleep participants got the slower their reactions were.
+
+## Exercise 4: Pivot Wider
+
+### Part A
+
+```{r}
+sleep_long |>
+  pivot_wider(names_from = day, values_from = reaction_time) |>
+  head()
+```
+
+### Part B
+
+```{r}
+sleep_long |>
+  pivot_wider(names_from = day, values_from = reaction_time, names_prefix = "day_") |>
+  head()
+```
+
+## Exercise 5: Practice with Billboard Charts
+
+```{r}
+# Load data
+library(tidyr)
+data("billboard")
+
+# Check it out
+head(billboard)
+```
+
+### Part A
+
+```{r}
+ggplot(billboard, aes(x = wk1, y = wk2)) +
+  geom_point() +
+  geom_abline(intercept = 0, slope = 1)
+```
+
+Most songs didn't improve their ranking from week 1 to 2. The higher a song's ranking during week 1, the more likely it was for it to keep up an equal ranking week 2.
+
+### Part B
+
+```{r}
+billboard |>
+  mutate(improve = wk1 < wk2) |>
+  filter(improve == "TRUE")
+```
+
+### Part C
+
+```{r}
+nov_1999 <- billboard |>
+  filter(date.entered == "1999-11-06") |>
+  select(-track, -date.entered)
+```
+
+### Part D
+
+```{r}
+nov_1999 |>
+  pivot_longer(cols = -artist,
+               names_to = "week",
+               names_prefix = "wk",
+               values_to = "ranking") |>
+  mutate(week = as.numeric(week)) |>
+  ggplot(aes(x = week, y = ranking, color = artist)) +
+  geom_line()
+```
+
+This visualization shows that the Counting Crows song started at 80, then steeply declined for about 12 weeks, and then increased sharply until week 20. The Faith Hill Song started similarly, but continued to lower in ranking number and bottomed out around 3 before steadily increasing back up to 50 at week 50. 
+
+## Exercise 6: Practice with the Daily Show
+
+```{r}
+library(fivethirtyeight)
+data("daily_show_guests")
+daily <- daily_show_guests
+```
+
+### Part A
+
+```{r}
+head(daily)
+
+daily |>
+  count(raw_guest_list) |>
+  arrange(desc(n)) |>
+  head(15)
+```
+
+### Part B
+
+```{r}
+daily |>
+  count(year, raw_guest_list) |>
+  group_by(raw_guest_list) |>
+  mutate(total_number = sum(n)) |>
+  pivot_wider(names_from = year, values_from = n, values_fill = 0) |>
+  arrange(desc(total_number)) |>
+  head(15)
+```
+
+### Part C
+
+```{r}
+plot_data <- daily |> 
+  mutate(broad_group = case_when(
+    group %in% c("Acting", "Athletics", "Comedy", "Musician") ~ "Acting, Comedy & Music",
+    group %in% c("Media", "media", "Science", "Academic", "Consultant", "Clergy") ~ "Media",
+    group %in% c("Politician", "Political Aide", "Government", "Military", "Business", "Advocacy") ~ "Government and Politics",
+    .default = NA
+  )) |> 
+  filter(!is.na(broad_group)) |>
+  group_by(year, broad_group) |>
+  summarise(n = sum(year)) |>
+  mutate(percentage = n/sum(n))
+
+ggplot(plot_data, aes(x = year, y = percentage, color = broad_group)) +
+  geom_line() +
+  labs(title = "Daily Show Guests' Occupations by Year", x = "Year", y = "%", color = "Occupation Type")
+ 
+```
+

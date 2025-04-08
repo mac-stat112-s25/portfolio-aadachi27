@@ -1,0 +1,50 @@
+---
+title: "Factors"
+format: html
+---
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(forcats)
+
+grades <- read.csv("https://mac-stat.github.io/data/grades.csv") |> 
+  distinct(sid, sessionID, .keep_all = TRUE)
+
+grade_distribution <- grades |> 
+  count(grade)
+```
+
+## Exercise 1: Changing Order
+
+```{r}
+grade_distribution |> 
+  ggplot(aes(x = grade, y = n)) +
+    geom_col()
+
+grade_distribution |>
+  mutate(grade = fct_relevel(grade, c("A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "NC", "S", "AU"))) |>
+  ggplot(aes(x = grade, y = n)) +
+  geom_col()
+
+grade_distribution |>
+  mutate(grade = fct_reorder(grade, n, .fun = "median")) |>
+  ggplot(aes(x = grade, y = n)) +
+  geom_col()
+
+grade_distribution |>
+  mutate(grade = fct_reorder(grade, n, .fun = "median", .desc = TRUE)) |>
+  ggplot(aes(x = grade, y = n)) +
+  geom_col()
+```
+
+## Exercise 2: Changing Factor Level Labels
+
+```{r}
+grade_distribution |>
+  mutate(grade = fct_relevel(grade, c("A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "NC", "S", "AU"))) |>
+  mutate(grade = fct_recode(grade, "Satisfactory" = "S", "Audit" = "AU")) |>
+  ggplot(aes(x = grade, y = n)) +
+  geom_col()
+```
+

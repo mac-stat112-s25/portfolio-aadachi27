@@ -30,14 +30,25 @@ book:
       - ica/ica-multi.qmd
       - ica/ica-spatial.qmd
       - ica/ica-effective.qmd
+      - ica/ica-wrangling.qmd
+      - ica/ica-dates.qmd
+      - ica/ica-reshaping.qmd
+      - ica/ica-joining.qmd
+      - ica/ica-factors.qmd
+      - ica/ica-strings.qmd
       
     - part: "Best Work"
       chapters: 
+      - bw/exam_1.qmd
+      - bw/exam_2.qmd
+      - bw/solo_project.qmd
+      - bw/summary.qmd
       - bw/bw-uni.qmd
       - bw/bw-bi.qmd
       - bw/bw-tri.qmd
       - bw/bw-quad.qmd
       - bw/bw-spatial.qmd
+      
 format:
   html:
     theme:
