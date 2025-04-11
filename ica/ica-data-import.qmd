@@ -1,0 +1,123 @@
+---
+title: "Data Import"
+format: html
+---
+
+# Exercise 1: Save Data Locally
+
+Data source: https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata
+Data creator: The Movie Database
+
+# Exercise 2: Import Data to RStudio
+
+## Part A
+
+```{r}
+library(tidyverse)
+imdb_messy <- read_csv("~/Documents/GitHub/portfolio-aadachi27/data/imdb_5000_messy.csv")
+```
+
+## Part B
+
+```{r}
+# This should be the folder where you stored this qmd!
+getwd()
+```
+
+## Part C
+
+```{r}
+imdb_temp <- read_csv("../data/imdb_5000_messy.csv")
+```
+
+# Exercise 3: Check Data
+
+```{r}
+imdb_messy |>
+  mutate(across(where(is.character), as.factor)) |>  # convert characters to factors in order to summarize
+  summary()
+```
+
+- there are a lot of NA values that might make summarising functions difficult
+- there are several different variations of black and white or color factors, when there should only be two
+
+# Exercise 4: Clean Data: Factor Variables 1
+
+```{r}
+imdb_messy |>
+  distinct(color)
+```
+
+There should just be two categories; one for color and one for black and white; instead of a bunch of different variations of each.
+
+# Exercise 5: Clean Data: Factor Variables 2
+
+```{r}
+imdb_temp <- imdb_messy |>
+  mutate(color = as.character(color)) |>
+  mutate(color = fct_recode(color, 
+             "Color" = "COLOR",
+             "Color" = "color",
+             "Black_White" = "Black and White",
+             "Black_White" = "B&W"))
+
+imdb_temp |>
+  count(color)
+```
+
+# Exercise 6: Clean Data: Missing Data 1
+
+```{r}
+# Count the total number of rows in imdb_messy
+nrow(imdb_messy)
+
+# Then count the number of NAs in each column
+colSums(is.na(imdb_messy))
+
+# Then count the number of NAs in a specific column
+imdb_messy |> 
+  filter(is.na(actor_1_facebook_likes))
+```
+
+Documentaries tend to have no information on actors for obvious reasons. 
+
+```{r}
+imdb_messy |>
+  filter(is.na(actor_1_facebook_likes))
+```
+
+These are all NA because, as stated above, they are documentaries and therefore don't have lead actors.
+
+# Exercise 7: Clean Data: Missing Data 2
+
+```{r}
+imdb_messy |>
+  summarise(avg_duration = mean(duration, na.rm = TRUE))
+```
+
+The NA values can just be removed from the summary.
+
+```{r}
+imdb_temp <- drop_na(imdb_messy)
+```
+
+This function excluded all of the data points with NA values for any variable from the dataset. This could be a good idea if we are exclusively looking to examine the data through numerical summaries, but a bad idea if we want to look at pretty much any other analysis of the data. Thousands of data points are excluded when this function is used, and as shown earlier, there is significant bias in which films tend to have NA values.
+
+```{r}
+ggplot(imdb_messy, aes(x = duration, fill = color)) + 
+  geom_density()
+
+imdb_messy |>
+  filter(!is.na(duration)) |>
+  filter(!is.na(color)) |>
+  ggplot(aes(x = duration, fill = color)) +
+  geom_density()
+```
+
+```{r}
+imdb_temp <- imdb_messy |> 
+  mutate(actor_1_facebook_likes =
+         replace_na(actor_1_facebook_likes, 0))
+
+```
+

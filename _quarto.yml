@@ -36,6 +36,7 @@ book:
       - ica/ica-joining.qmd
       - ica/ica-factors.qmd
       - ica/ica-strings.qmd
+      - ica/ica-data-import.qmd
       
     - part: "Best Work"
       chapters: 
