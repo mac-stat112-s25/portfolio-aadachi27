@@ -299,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bw/exam_1.html">Best Work</a></li><li class="breadcrumb-item"><a href="../bw/bw-spatial.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spatial Viz</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
 <span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Spatial Viz</span>
-</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -315,13 +315,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header><p>Use this file to generate a professional looking <strong>spatial</strong> visualization. The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
 <pre><code>Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(maps)</span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(maps)</span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(mosaic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
+</details><div class="cell-output cell-output-stderr">
 <pre><code>Registered S3 method overwritten by 'mosaic':
   method                           from   
   fortify.SpatialPolygonsDataFrame ggplot2</code></pre>
@@ -361,7 +361,7 @@ Attaching package: 'mosaic'</code></pre>
 
     max, mean, min, prod, range, sample, sum</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(socviz)</span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(socviz)</span>
 <span id="cb12-2"><a href="#cb12-2"></a><span class="fu">data</span>(county_map) </span>
 <span id="cb12-3"><a href="#cb12-3"></a></span>
 <span id="cb12-4"><a href="#cb12-4"></a>elections_by_counties <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://mac-stat.github.io/data/election_2020_county.csv"</span>)</span>
@@ -396,7 +396,7 @@ Attaching package: 'mosaic'</code></pre>
 <span id="cb12-33"><a href="#cb12-33"></a>    <span class="at">fill =</span> <span class="st">"Median Rent Per Month (Dollars)"</span>,</span>
 <span id="cb12-34"><a href="#cb12-34"></a>    <span class="at">caption =</span> <span class="st">"Made by Annabelle Adachi"</span></span>
 <span id="cb12-35"><a href="#cb12-35"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+</details><div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="bw-spatial_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" alt="Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Generally, counties where the Democratic candidate won in 2020 tend to have a higher median monthly cost of rent. Source: https://mac-stat.github.io/data/election_2020_county.csv." width="672"></p>
 <figcaption>Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Source: https://mac-stat.github.io/data/election_2020_county.csv.</figcaption></figure>
@@ -1037,55 +1037,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">---</span></span>
 <span id="cb13-2"><a href="#cb13-2"></a><span class="an">title:</span><span class="co"> "Spatial Viz"</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">---</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a></span>
-<span id="cb13-5"><a href="#cb13-5"></a>Use this file to generate a professional looking **spatial** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.</span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co">---</span></span>
 <span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-9"><a href="#cb13-9"></a><span class="in">```{r}</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a><span class="co">#| fig-cap: "Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Source: https://mac-stat.github.io/data/election_2020_county.csv."</span></span>
-<span id="cb13-11"><a href="#cb13-11"></a><span class="co">#| fig-alt: "Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Generally, counties where the Democratic candidate won in 2020 tend to have a higher median monthly cost of rent. Source: https://mac-stat.github.io/data/election_2020_county.csv."</span></span>
-<span id="cb13-12"><a href="#cb13-12"></a></span>
-<span id="cb13-13"><a href="#cb13-13"></a></span>
-<span id="cb13-14"><a href="#cb13-14"></a><span class="fu">library</span>(sf)</span>
-<span id="cb13-15"><a href="#cb13-15"></a><span class="fu">library</span>(maps)</span>
-<span id="cb13-16"><a href="#cb13-16"></a><span class="fu">library</span>(mosaic)</span>
-<span id="cb13-17"><a href="#cb13-17"></a><span class="fu">library</span>(socviz)</span>
-<span id="cb13-18"><a href="#cb13-18"></a><span class="fu">data</span>(county_map) </span>
-<span id="cb13-19"><a href="#cb13-19"></a></span>
-<span id="cb13-20"><a href="#cb13-20"></a>elections_by_counties <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://mac-stat.github.io/data/election_2020_county.csv"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7"></a>Use this file to generate a professional looking **spatial** visualization.  The visualization will not perfect the first time but you are expected to improve on it throughout the semester especially after covering advanced topics such as effective viz.</span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="in">```{r}</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a><span class="co">#| fig-cap: "Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Source: https://mac-stat.github.io/data/election_2020_county.csv."</span></span>
+<span id="cb13-13"><a href="#cb13-13"></a><span class="co">#| fig-alt: "Map showing median monthy rent cost across the United States(exluding Alaska and Hawaii), separated by the 2020 general presidential election results. Generally, counties where the Democratic candidate won in 2020 tend to have a higher median monthly cost of rent. Source: https://mac-stat.github.io/data/election_2020_county.csv."</span></span>
+<span id="cb13-14"><a href="#cb13-14"></a></span>
+<span id="cb13-15"><a href="#cb13-15"></a></span>
+<span id="cb13-16"><a href="#cb13-16"></a><span class="fu">library</span>(sf)</span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="fu">library</span>(maps)</span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="fu">library</span>(mosaic)</span>
+<span id="cb13-19"><a href="#cb13-19"></a><span class="fu">library</span>(socviz)</span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="fu">data</span>(county_map) </span>
 <span id="cb13-21"><a href="#cb13-21"></a></span>
-<span id="cb13-22"><a href="#cb13-22"></a>elections_by_counties <span class="ot">&lt;-</span> elections_by_counties <span class="sc">|&gt;</span> </span>
-<span id="cb13-23"><a href="#cb13-23"></a>  <span class="fu">select</span>(state_name, state_abbr, county_name, county_fips,</span>
-<span id="cb13-24"><a href="#cb13-24"></a>          repub_pct_20, median_age, median_rent, winner_20) <span class="sc">|&gt;</span> </span>
-<span id="cb13-25"><a href="#cb13-25"></a>  <span class="fu">mutate</span>(<span class="at">repub_20_categories =</span> </span>
-<span id="cb13-26"><a href="#cb13-26"></a>           <span class="fu">cut</span>(repub_pct_20, </span>
-<span id="cb13-27"><a href="#cb13-27"></a>               <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
-<span id="cb13-28"><a href="#cb13-28"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0-9"</span>, <span class="st">"10-19"</span>, <span class="st">"20-29"</span>, <span class="st">"30-39"</span>, <span class="st">"40-49"</span>,</span>
-<span id="cb13-29"><a href="#cb13-29"></a>                          <span class="st">"50-59"</span>, <span class="st">"60-69"</span>, <span class="st">"70-79"</span>, <span class="st">"80-89"</span>, <span class="st">"90-100"</span>),</span>
-<span id="cb13-30"><a href="#cb13-30"></a>               <span class="at">include.lowest =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb13-31"><a href="#cb13-31"></a></span>
-<span id="cb13-32"><a href="#cb13-32"></a>elections_by_counties <span class="ot">&lt;-</span> elections_by_counties <span class="sc">|&gt;</span> </span>
-<span id="cb13-33"><a href="#cb13-33"></a>  <span class="fu">mutate</span>(<span class="at">county_fips =</span> <span class="fu">as.character</span>(county_fips)) <span class="sc">|&gt;</span> </span>
-<span id="cb13-34"><a href="#cb13-34"></a>  <span class="fu">mutate</span>(<span class="at">county_fips =</span> </span>
-<span id="cb13-35"><a href="#cb13-35"></a>           <span class="fu">ifelse</span>(<span class="fu">nchar</span>(county_fips) <span class="sc">==</span> <span class="dv">4</span>, <span class="fu">paste0</span>(<span class="st">"0"</span>, county_fips), county_fips))</span>
-<span id="cb13-36"><a href="#cb13-36"></a></span>
-<span id="cb13-37"><a href="#cb13-37"></a>winner <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">dem =</span> <span class="st">"Democratic Winner"</span>, <span class="at">repub =</span> <span class="st">"Republican Winner"</span>)</span>
+<span id="cb13-22"><a href="#cb13-22"></a>elections_by_counties <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"https://mac-stat.github.io/data/election_2020_county.csv"</span>)</span>
+<span id="cb13-23"><a href="#cb13-23"></a></span>
+<span id="cb13-24"><a href="#cb13-24"></a>elections_by_counties <span class="ot">&lt;-</span> elections_by_counties <span class="sc">|&gt;</span> </span>
+<span id="cb13-25"><a href="#cb13-25"></a>  <span class="fu">select</span>(state_name, state_abbr, county_name, county_fips,</span>
+<span id="cb13-26"><a href="#cb13-26"></a>          repub_pct_20, median_age, median_rent, winner_20) <span class="sc">|&gt;</span> </span>
+<span id="cb13-27"><a href="#cb13-27"></a>  <span class="fu">mutate</span>(<span class="at">repub_20_categories =</span> </span>
+<span id="cb13-28"><a href="#cb13-28"></a>           <span class="fu">cut</span>(repub_pct_20, </span>
+<span id="cb13-29"><a href="#cb13-29"></a>               <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>),</span>
+<span id="cb13-30"><a href="#cb13-30"></a>               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0-9"</span>, <span class="st">"10-19"</span>, <span class="st">"20-29"</span>, <span class="st">"30-39"</span>, <span class="st">"40-49"</span>,</span>
+<span id="cb13-31"><a href="#cb13-31"></a>                          <span class="st">"50-59"</span>, <span class="st">"60-69"</span>, <span class="st">"70-79"</span>, <span class="st">"80-89"</span>, <span class="st">"90-100"</span>),</span>
+<span id="cb13-32"><a href="#cb13-32"></a>               <span class="at">include.lowest =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb13-33"><a href="#cb13-33"></a></span>
+<span id="cb13-34"><a href="#cb13-34"></a>elections_by_counties <span class="ot">&lt;-</span> elections_by_counties <span class="sc">|&gt;</span> </span>
+<span id="cb13-35"><a href="#cb13-35"></a>  <span class="fu">mutate</span>(<span class="at">county_fips =</span> <span class="fu">as.character</span>(county_fips)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-36"><a href="#cb13-36"></a>  <span class="fu">mutate</span>(<span class="at">county_fips =</span> </span>
+<span id="cb13-37"><a href="#cb13-37"></a>           <span class="fu">ifelse</span>(<span class="fu">nchar</span>(county_fips) <span class="sc">==</span> <span class="dv">4</span>, <span class="fu">paste0</span>(<span class="st">"0"</span>, county_fips), county_fips))</span>
 <span id="cb13-38"><a href="#cb13-38"></a></span>
-<span id="cb13-39"><a href="#cb13-39"></a><span class="fu">ggplot</span>(elections_by_counties, <span class="fu">aes</span>(<span class="at">map_id =</span> county_fips, <span class="at">fill =</span> median_rent)) <span class="sc">+</span></span>
-<span id="cb13-40"><a href="#cb13-40"></a>  <span class="fu">geom_map</span>(<span class="at">map =</span> county_map) <span class="sc">+</span></span>
-<span id="cb13-41"><a href="#cb13-41"></a>  <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
-<span id="cb13-42"><a href="#cb13-42"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> county_map<span class="sc">$</span>long, <span class="at">y =</span> county_map<span class="sc">$</span>lat) <span class="sc">+</span></span>
-<span id="cb13-43"><a href="#cb13-43"></a>  <span class="fu">theme_map</span>() <span class="sc">+</span></span>
-<span id="cb13-44"><a href="#cb13-44"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) <span class="sc">+</span> </span>
-<span id="cb13-45"><a href="#cb13-45"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
-<span id="cb13-46"><a href="#cb13-46"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>winner_20, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">winner_20 =</span> winner)) <span class="sc">+</span></span>
-<span id="cb13-47"><a href="#cb13-47"></a>  <span class="fu">labs</span>(</span>
-<span id="cb13-48"><a href="#cb13-48"></a>    <span class="at">title =</span> <span class="st">"Median Rent vs. 2020 Election Results"</span>,</span>
-<span id="cb13-49"><a href="#cb13-49"></a>    <span class="at">fill =</span> <span class="st">"Median Rent Per Month (Dollars)"</span>,</span>
-<span id="cb13-50"><a href="#cb13-50"></a>    <span class="at">caption =</span> <span class="st">"Made by Annabelle Adachi"</span></span>
-<span id="cb13-51"><a href="#cb13-51"></a>  )</span>
-<span id="cb13-52"><a href="#cb13-52"></a></span>
-<span id="cb13-53"><a href="#cb13-53"></a><span class="in">```</span></span>
+<span id="cb13-39"><a href="#cb13-39"></a>winner <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">dem =</span> <span class="st">"Democratic Winner"</span>, <span class="at">repub =</span> <span class="st">"Republican Winner"</span>)</span>
+<span id="cb13-40"><a href="#cb13-40"></a></span>
+<span id="cb13-41"><a href="#cb13-41"></a><span class="fu">ggplot</span>(elections_by_counties, <span class="fu">aes</span>(<span class="at">map_id =</span> county_fips, <span class="at">fill =</span> median_rent)) <span class="sc">+</span></span>
+<span id="cb13-42"><a href="#cb13-42"></a>  <span class="fu">geom_map</span>(<span class="at">map =</span> county_map) <span class="sc">+</span></span>
+<span id="cb13-43"><a href="#cb13-43"></a>  <span class="fu">scale_fill_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb13-44"><a href="#cb13-44"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> county_map<span class="sc">$</span>long, <span class="at">y =</span> county_map<span class="sc">$</span>lat) <span class="sc">+</span></span>
+<span id="cb13-45"><a href="#cb13-45"></a>  <span class="fu">theme_map</span>() <span class="sc">+</span></span>
+<span id="cb13-46"><a href="#cb13-46"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>) <span class="sc">+</span> </span>
+<span id="cb13-47"><a href="#cb13-47"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb13-48"><a href="#cb13-48"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>winner_20, <span class="at">labeller =</span> <span class="fu">labeller</span>(<span class="at">winner_20 =</span> winner)) <span class="sc">+</span></span>
+<span id="cb13-49"><a href="#cb13-49"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-50"><a href="#cb13-50"></a>    <span class="at">title =</span> <span class="st">"Median Rent vs. 2020 Election Results"</span>,</span>
+<span id="cb13-51"><a href="#cb13-51"></a>    <span class="at">fill =</span> <span class="st">"Median Rent Per Month (Dollars)"</span>,</span>
+<span id="cb13-52"><a href="#cb13-52"></a>    <span class="at">caption =</span> <span class="st">"Made by Annabelle Adachi"</span></span>
+<span id="cb13-53"><a href="#cb13-53"></a>  )</span>
+<span id="cb13-54"><a href="#cb13-54"></a></span>
+<span id="cb13-55"><a href="#cb13-55"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

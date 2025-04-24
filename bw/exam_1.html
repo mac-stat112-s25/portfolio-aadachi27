@@ -297,17 +297,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#load-packages" id="toc-load-packages" class="nav-link active" data-scroll-target="#load-packages"><span class="header-section-number">13.1</span> Load Packages</a></li>
-  <li><a href="#get-data" id="toc-get-data" class="nav-link" data-scroll-target="#get-data"><span class="header-section-number">13.2</span> Get Data</a></li>
-  <li><a href="#understand-consumption" id="toc-understand-consumption" class="nav-link" data-scroll-target="#understand-consumption"><span class="header-section-number">13.3</span> Understand Consumption</a></li>
-  <li><a href="#grand-research-question" id="toc-grand-research-question" class="nav-link" data-scroll-target="#grand-research-question"><span class="header-section-number">13.4</span> Grand Research Question</a></li>
+<li><a href="#total-consumption-by-country" id="toc-total-consumption-by-country" class="nav-link active" data-scroll-target="#total-consumption-by-country"><span class="header-section-number">13.1</span> Total Consumption by Country</a></li>
+  <li><a href="#total-consumption-by-food-category" id="toc-total-consumption-by-food-category" class="nav-link" data-scroll-target="#total-consumption-by-food-category"><span class="header-section-number">13.2</span> Total Consumption by Food Category</a></li>
+  <li><a href="#grand-research-question" id="toc-grand-research-question" class="nav-link" data-scroll-target="#grand-research-question"><span class="header-section-number">13.3</span> Grand Research Question</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../bw/exam_1.html">Best Work</a></li><li class="breadcrumb-item"><a href="../bw/exam_1.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exam 1</span></a></li></ol></nav><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
 <span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exam 1</span>
-</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -321,13 +320,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><section id="load-packages" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="load-packages">
-<span class="header-section-number">13.1</span> Load Packages</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidytuesdayR)</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
+</header><div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidytuesdayR)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
+</details><div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
@@ -339,12 +336,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-</div>
-</section><section id="get-data" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="get-data">
-<span class="header-section-number">13.2</span> Get Data</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>tuesdata <span class="ot">&lt;-</span> <span class="fu">tt_load</span>(<span class="st">'2020-02-18'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># get data</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>tuesdata <span class="ot">&lt;-</span> <span class="fu">tt_load</span>(<span class="st">'2020-02-18'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
 <pre><code>---- Compiling #TidyTuesday Information for 2020-02-18 ----
 --- There is 1 file available ---
 
@@ -353,72 +347,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
   1 of 1: "food_consumption.csv"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>food_consumption <span class="ot">&lt;-</span> tuesdata[[<span class="st">"food_consumption"</span>]]</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">head</span>(food_consumption)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  country   food_category consumption co2_emmission
-  &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt;         &lt;dbl&gt;
-1 Argentina Pork                10.5          37.2 
-2 Argentina Poultry             38.7          41.5 
-3 Argentina Beef                55.5        1712   
-4 Argentina Lamb &amp; Goat          1.56         54.6 
-5 Argentina Fish                 4.36          6.96
-6 Argentina Eggs                11.4          10.5 </code></pre>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>food_consumption <span class="ot">&lt;-</span> tuesdata[[<span class="st">"food_consumption"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-</div>
-</section><section id="understand-consumption" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="understand-consumption">
-<span class="header-section-number">13.3</span> Understand Consumption</h2>
+<section id="total-consumption-by-country" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="total-consumption-by-country">
+<span class="header-section-number">13.1</span> Total Consumption by Country</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># total consumption by country</span></span>
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># total consumption by country</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>food_consumption <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">summarise</span>(<span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption)) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_consumption)) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> country)) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="exam_1_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" alt="Column graph showing total consumption of all food categories by top ten highest-consuming countries. Finland has the highest consumption of approximately 630, and the others are between about 500 and 550. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18." width="960"></p>
+<figcaption>Column graph showing total consumption of all food categories by top ten highest-consuming countries. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18.</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="total-consumption-by-food-category" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="total-consumption-by-food-category">
+<span class="header-section-number">13.2</span> Total Consumption by Food Category</h2>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># total consumption by food category</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>food_consumption <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">group_by</span>(food_category) <span class="sc">|&gt;</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">summarise</span>(<span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption)) <span class="sc">|&gt;</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_consumption)) <span class="sc">|&gt;</span></span>
 <span id="cb7-6"><a href="#cb7-6"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> country)) <span class="sc">+</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="exam_1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># total consumption by food category</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>food_consumption <span class="sc">|&gt;</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">group_by</span>(food_category) <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">summarise</span>(<span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption)) <span class="sc">|&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_consumption)) <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food_category, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="exam_1_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<span id="cb7-7"><a href="#cb7-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food_category, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb7-9"><a href="#cb7-9"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="exam_1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" alt="Column graph comparing total consumption across all countries by the top 10 most-consumed food categories. The category with the highest consumption was milk including cheese and the lowest was lamb and goat. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18." width="960"></p>
+<figcaption>Column graph comparing total consumption across all countries by the top 10 most-consumed food categories. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18.</figcaption></figure>
 </div>
 </div>
 </div>
-</section><section id="grand-research-question" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="grand-research-question">
-<span class="header-section-number">13.4</span> Grand Research Question</h2>
+</section><section id="grand-research-question" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="grand-research-question">
+<span class="header-section-number">13.3</span> Grand Research Question</h2>
 <p>What does the consumption of each food category in each country look like?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>food_consumption <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>co2_emmission) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Consumption"</span>, <span class="at">fill =</span> <span class="st">"Food Category"</span>) <span class="sc">+</span></span>
-<span id="cb9-7"><a href="#cb9-7"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">80</span>, <span class="at">size =</span> <span class="dv">24</span>), </span>
-<span id="cb9-8"><a href="#cb9-8"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
-<span id="cb9-9"><a href="#cb9-9"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">24</span>),</span>
-<span id="cb9-10"><a href="#cb9-10"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
-<span id="cb9-11"><a href="#cb9-11"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
-<span id="cb9-12"><a href="#cb9-12"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">36</span>), </span>
-<span id="cb9-13"><a href="#cb9-13"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>), </span>
-<span id="cb9-14"><a href="#cb9-14"></a>        <span class="at">legend.title.position =</span> <span class="st">"left"</span>) <span class="sc">+</span></span>
-<span id="cb9-15"><a href="#cb9-15"></a>  <span class="fu">scale_fill_viridis_d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
+<details class="code-fold"><summary>Code</summary><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>food_consumption <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>co2_emmission) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Consumption"</span>, <span class="at">fill =</span> <span class="st">"Food Category"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">80</span>, <span class="at">size =</span> <span class="dv">24</span>), </span>
+<span id="cb8-8"><a href="#cb8-8"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
+<span id="cb8-9"><a href="#cb8-9"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">24</span>),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
+<span id="cb8-12"><a href="#cb8-12"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">36</span>), </span>
+<span id="cb8-13"><a href="#cb8-13"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>), </span>
+<span id="cb8-14"><a href="#cb8-14"></a>        <span class="at">legend.title.position =</span> <span class="st">"left"</span>) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a>  <span class="fu">scale_fill_viridis_d</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="exam_1_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="4320"></p>
 </figure>
@@ -1059,78 +1047,85 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">---</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="an">title:</span><span class="co"> "Exam 1"</span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb10-4"><a href="#cb10-4"></a><span class="co">---</span></span>
-<span id="cb10-5"><a href="#cb10-5"></a></span>
-<span id="cb10-6"><a href="#cb10-6"></a></span>
-<span id="cb10-7"><a href="#cb10-7"></a><span class="fu">## Load Packages</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a></span>
-<span id="cb10-11"><a href="#cb10-11"></a><span class="in">```{r}</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a><span class="fu">library</span>(tidytuesdayR)</span>
-<span id="cb10-13"><a href="#cb10-13"></a></span>
-<span id="cb10-14"><a href="#cb10-14"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="in">```</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a></span>
-<span id="cb10-17"><a href="#cb10-17"></a><span class="fu">## Get Data</span></span>
-<span id="cb10-18"><a href="#cb10-18"></a></span>
-<span id="cb10-21"><a href="#cb10-21"></a><span class="in">```{r}</span></span>
-<span id="cb10-22"><a href="#cb10-22"></a>tuesdata <span class="ot">&lt;-</span> <span class="fu">tt_load</span>(<span class="st">'2020-02-18'</span>)</span>
-<span id="cb10-23"><a href="#cb10-23"></a></span>
-<span id="cb10-24"><a href="#cb10-24"></a>food_consumption <span class="ot">&lt;-</span> tuesdata[[<span class="st">"food_consumption"</span>]]</span>
-<span id="cb10-25"><a href="#cb10-25"></a><span class="fu">head</span>(food_consumption)</span>
-<span id="cb10-26"><a href="#cb10-26"></a></span>
-<span id="cb10-27"><a href="#cb10-27"></a><span class="in">```</span></span>
-<span id="cb10-28"><a href="#cb10-28"></a></span>
-<span id="cb10-29"><a href="#cb10-29"></a><span class="fu">## Understand Consumption</span></span>
-<span id="cb10-30"><a href="#cb10-30"></a></span>
-<span id="cb10-33"><a href="#cb10-33"></a><span class="in">```{r}</span></span>
-<span id="cb10-34"><a href="#cb10-34"></a><span class="co"># total consumption by country</span></span>
-<span id="cb10-35"><a href="#cb10-35"></a>food_consumption <span class="sc">|&gt;</span></span>
-<span id="cb10-36"><a href="#cb10-36"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
-<span id="cb10-37"><a href="#cb10-37"></a>  <span class="fu">summarise</span>(<span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption)) <span class="sc">|&gt;</span></span>
-<span id="cb10-38"><a href="#cb10-38"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_consumption)) <span class="sc">|&gt;</span></span>
-<span id="cb10-39"><a href="#cb10-39"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-40"><a href="#cb10-40"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> country)) <span class="sc">+</span></span>
-<span id="cb10-41"><a href="#cb10-41"></a>  <span class="fu">geom_col</span>()</span>
-<span id="cb10-42"><a href="#cb10-42"></a></span>
-<span id="cb10-43"><a href="#cb10-43"></a><span class="co"># total consumption by food category</span></span>
-<span id="cb10-44"><a href="#cb10-44"></a>food_consumption <span class="sc">|&gt;</span></span>
-<span id="cb10-45"><a href="#cb10-45"></a>  <span class="fu">group_by</span>(food_category) <span class="sc">|&gt;</span></span>
-<span id="cb10-46"><a href="#cb10-46"></a>  <span class="fu">summarise</span>(<span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption)) <span class="sc">|&gt;</span></span>
-<span id="cb10-47"><a href="#cb10-47"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_consumption)) <span class="sc">|&gt;</span></span>
-<span id="cb10-48"><a href="#cb10-48"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb10-49"><a href="#cb10-49"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food_category, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
-<span id="cb10-50"><a href="#cb10-50"></a>  <span class="fu">geom_col</span>()</span>
-<span id="cb10-51"><a href="#cb10-51"></a></span>
-<span id="cb10-52"><a href="#cb10-52"></a><span class="in">```</span></span>
-<span id="cb10-53"><a href="#cb10-53"></a></span>
-<span id="cb10-54"><a href="#cb10-54"></a><span class="fu">## Grand Research Question</span></span>
-<span id="cb10-55"><a href="#cb10-55"></a></span>
-<span id="cb10-56"><a href="#cb10-56"></a>What does the consumption of each food category in each country look like? </span>
-<span id="cb10-57"><a href="#cb10-57"></a></span>
-<span id="cb10-60"><a href="#cb10-60"></a><span class="in">```{r}</span></span>
-<span id="cb10-61"><a href="#cb10-61"></a><span class="co">#| fig-height: 25</span></span>
-<span id="cb10-62"><a href="#cb10-62"></a><span class="co">#| fig-width: 45</span></span>
-<span id="cb10-63"><a href="#cb10-63"></a></span>
-<span id="cb10-64"><a href="#cb10-64"></a>food_consumption <span class="sc">|&gt;</span></span>
-<span id="cb10-65"><a href="#cb10-65"></a>  <span class="fu">select</span>(<span class="sc">-</span>co2_emmission) <span class="sc">|&gt;</span></span>
-<span id="cb10-66"><a href="#cb10-66"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
-<span id="cb10-67"><a href="#cb10-67"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
-<span id="cb10-68"><a href="#cb10-68"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb10-69"><a href="#cb10-69"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Consumption"</span>, <span class="at">fill =</span> <span class="st">"Food Category"</span>) <span class="sc">+</span></span>
-<span id="cb10-70"><a href="#cb10-70"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">80</span>, <span class="at">size =</span> <span class="dv">24</span>), </span>
-<span id="cb10-71"><a href="#cb10-71"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
-<span id="cb10-72"><a href="#cb10-72"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">24</span>),</span>
-<span id="cb10-73"><a href="#cb10-73"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
-<span id="cb10-74"><a href="#cb10-74"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
-<span id="cb10-75"><a href="#cb10-75"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">36</span>), </span>
-<span id="cb10-76"><a href="#cb10-76"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>), </span>
-<span id="cb10-77"><a href="#cb10-77"></a>        <span class="at">legend.title.position =</span> <span class="st">"left"</span>) <span class="sc">+</span></span>
-<span id="cb10-78"><a href="#cb10-78"></a>  <span class="fu">scale_fill_viridis_d</span>()</span>
-<span id="cb10-79"><a href="#cb10-79"></a><span class="in">```</span></span>
-<span id="cb10-80"><a href="#cb10-80"></a></span>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">---</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="an">title:</span><span class="co"> "Exam 1"</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co">---</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="in">```{r}</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="co"># load packages</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="fu">library</span>(tidytuesdayR)</span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-13"><a href="#cb9-13"></a></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="co"># get data</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>tuesdata <span class="ot">&lt;-</span> <span class="fu">tt_load</span>(<span class="st">'2020-02-18'</span>)</span>
+<span id="cb9-16"><a href="#cb9-16"></a>food_consumption <span class="ot">&lt;-</span> tuesdata[[<span class="st">"food_consumption"</span>]]</span>
+<span id="cb9-17"><a href="#cb9-17"></a></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="in">```</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="fu">## Total Consumption by Country</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="in">```{r}</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="co">#| fig-alt: "Column graph showing total consumption of all food categories by top ten highest-consuming countries. Finland has the highest consumption of approximately 630, and the others are between about 500 and 550. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a><span class="co">#| fig-cap: "Column graph showing total consumption of all food categories by top ten highest-consuming countries. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."</span></span>
+<span id="cb9-28"><a href="#cb9-28"></a></span>
+<span id="cb9-29"><a href="#cb9-29"></a><span class="co"># total consumption by country</span></span>
+<span id="cb9-30"><a href="#cb9-30"></a>food_consumption <span class="sc">|&gt;</span></span>
+<span id="cb9-31"><a href="#cb9-31"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb9-32"><a href="#cb9-32"></a>  <span class="fu">summarise</span>(<span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption)) <span class="sc">|&gt;</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_consumption)) <span class="sc">|&gt;</span></span>
+<span id="cb9-34"><a href="#cb9-34"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-35"><a href="#cb9-35"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> country)) <span class="sc">+</span></span>
+<span id="cb9-36"><a href="#cb9-36"></a>  <span class="fu">geom_col</span>()</span>
+<span id="cb9-37"><a href="#cb9-37"></a></span>
+<span id="cb9-38"><a href="#cb9-38"></a><span class="in">```</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a></span>
+<span id="cb9-40"><a href="#cb9-40"></a><span class="fu">## Total Consumption by Food Category</span></span>
+<span id="cb9-41"><a href="#cb9-41"></a></span>
+<span id="cb9-44"><a href="#cb9-44"></a><span class="in">```{r}</span></span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb9-46"><a href="#cb9-46"></a><span class="co">#| fig-alt: "Column graph comparing total consumption across all countries by the top 10 most-consumed food categories. The category with the highest consumption was milk including cheese and the lowest was lamb and goat. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."</span></span>
+<span id="cb9-47"><a href="#cb9-47"></a><span class="co">#| fig-cap: "Column graph comparing total consumption across all countries by the top 10 most-consumed food categories. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a></span>
+<span id="cb9-49"><a href="#cb9-49"></a><span class="co"># total consumption by food category</span></span>
+<span id="cb9-50"><a href="#cb9-50"></a>food_consumption <span class="sc">|&gt;</span></span>
+<span id="cb9-51"><a href="#cb9-51"></a>  <span class="fu">group_by</span>(food_category) <span class="sc">|&gt;</span></span>
+<span id="cb9-52"><a href="#cb9-52"></a>  <span class="fu">summarise</span>(<span class="at">total_consumption =</span> <span class="fu">sum</span>(consumption)) <span class="sc">|&gt;</span></span>
+<span id="cb9-53"><a href="#cb9-53"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(total_consumption)) <span class="sc">|&gt;</span></span>
+<span id="cb9-54"><a href="#cb9-54"></a>  <span class="fu">head</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-55"><a href="#cb9-55"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> food_category, <span class="at">y =</span> total_consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
+<span id="cb9-56"><a href="#cb9-56"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> </span>
+<span id="cb9-57"><a href="#cb9-57"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>))</span>
+<span id="cb9-58"><a href="#cb9-58"></a></span>
+<span id="cb9-59"><a href="#cb9-59"></a><span class="in">```</span></span>
+<span id="cb9-60"><a href="#cb9-60"></a></span>
+<span id="cb9-61"><a href="#cb9-61"></a><span class="fu">## Grand Research Question</span></span>
+<span id="cb9-62"><a href="#cb9-62"></a></span>
+<span id="cb9-63"><a href="#cb9-63"></a>What does the consumption of each food category in each country look like? </span>
+<span id="cb9-64"><a href="#cb9-64"></a></span>
+<span id="cb9-67"><a href="#cb9-67"></a><span class="in">```{r}</span></span>
+<span id="cb9-68"><a href="#cb9-68"></a><span class="co">#| fig-height: 25</span></span>
+<span id="cb9-69"><a href="#cb9-69"></a><span class="co">#| fig-width: 45</span></span>
+<span id="cb9-70"><a href="#cb9-70"></a></span>
+<span id="cb9-71"><a href="#cb9-71"></a>food_consumption <span class="sc">|&gt;</span></span>
+<span id="cb9-72"><a href="#cb9-72"></a>  <span class="fu">select</span>(<span class="sc">-</span>co2_emmission) <span class="sc">|&gt;</span></span>
+<span id="cb9-73"><a href="#cb9-73"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb9-74"><a href="#cb9-74"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> country, <span class="at">y =</span> consumption, <span class="at">fill =</span> food_category)) <span class="sc">+</span></span>
+<span id="cb9-75"><a href="#cb9-75"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb9-76"><a href="#cb9-76"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Country"</span>, <span class="at">y =</span> <span class="st">"Consumption"</span>, <span class="at">fill =</span> <span class="st">"Food Category"</span>) <span class="sc">+</span></span>
+<span id="cb9-77"><a href="#cb9-77"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">80</span>, <span class="at">size =</span> <span class="dv">24</span>), </span>
+<span id="cb9-78"><a href="#cb9-78"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
+<span id="cb9-79"><a href="#cb9-79"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">24</span>),</span>
+<span id="cb9-80"><a href="#cb9-80"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>),</span>
+<span id="cb9-81"><a href="#cb9-81"></a>        <span class="at">legend.position =</span> <span class="st">"bottom"</span>, </span>
+<span id="cb9-82"><a href="#cb9-82"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">36</span>), </span>
+<span id="cb9-83"><a href="#cb9-83"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">40</span>), </span>
+<span id="cb9-84"><a href="#cb9-84"></a>        <span class="at">legend.title.position =</span> <span class="st">"left"</span>) <span class="sc">+</span></span>
+<span id="cb9-85"><a href="#cb9-85"></a>  <span class="fu">scale_fill_viridis_d</span>()</span>
+<span id="cb9-86"><a href="#cb9-86"></a><span class="in">```</span></span>
+<span id="cb9-87"><a href="#cb9-87"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
