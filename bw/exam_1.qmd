@@ -1,30 +1,27 @@
 ---
 title: "Exam 1"
 format: html
+code-fold: true
 ---
 
-
-## Load Packages
-
 ```{r}
+# load packages
 library(tidytuesdayR)
-
 library(tidyverse)
-```
 
-## Get Data
-
-```{r}
+# get data
 tuesdata <- tt_load('2020-02-18')
-
 food_consumption <- tuesdata[["food_consumption"]]
-head(food_consumption)
 
 ```
 
-## Understand Consumption
+## Total Consumption by Country
 
 ```{r}
+#| fig-width: 10
+#| fig-alt: "Column graph showing total consumption of all food categories by top ten highest-consuming countries. Finland has the highest consumption of approximately 630, and the others are between about 500 and 550. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."
+#| fig-cap: "Column graph showing total consumption of all food categories by top ten highest-consuming countries. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."
+
 # total consumption by country
 food_consumption |>
   group_by(country) |>
@@ -34,6 +31,15 @@ food_consumption |>
   ggplot(aes(x = country, y = total_consumption, fill = country)) +
   geom_col()
 
+```
+
+## Total Consumption by Food Category
+
+```{r}
+#| fig-width: 10
+#| fig-alt: "Column graph comparing total consumption across all countries by the top 10 most-consumed food categories. The category with the highest consumption was milk including cheese and the lowest was lamb and goat. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."
+#| fig-cap: "Column graph comparing total consumption across all countries by the top 10 most-consumed food categories. Data from Tidy Tuesday, https://github.com/rfordatascience/tidytuesday/tree/main/data/2020/2020-02-18."
+
 # total consumption by food category
 food_consumption |>
   group_by(food_category) |>
@@ -41,7 +47,8 @@ food_consumption |>
   arrange(desc(total_consumption)) |>
   head(10) |>
   ggplot(aes(x = food_category, y = total_consumption, fill = food_category)) +
-  geom_col()
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 30))
 
 ```
 
