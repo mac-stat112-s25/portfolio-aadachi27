@@ -29,7 +29,8 @@ food_consumption |>
   arrange(desc(total_consumption)) |>
   head(10) |>
   ggplot(aes(x = country, y = total_consumption, fill = country)) +
-  geom_col()
+  geom_col() +
+  theme()
 
 ```
 

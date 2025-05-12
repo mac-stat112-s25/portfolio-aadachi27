@@ -4,7 +4,7 @@ project:
 
 book:
   title: "COMP/STAT112 Notebook"
-  author: "Your Name Here"
+  author: "Annabelle Adachi"
   date: today
   reader-mode: true
   page-navigation: true
@@ -23,6 +23,17 @@ book:
   chapters:
     - index.qmd
 
+    - part: "Best Work"
+      chapters: 
+      - bw/exam_1.qmd
+      - bw/exam_2.qmd
+      - bw/solo_project.qmd
+      - bw/bw-uni.qmd
+      - bw/bw-bi.qmd
+      - bw/bw-tri.qmd
+      - bw/bw-quad.qmd
+      - bw/bw-spatial.qmd
+      
     - part: "In-class Activities"
       chapters: 
       - ica/ica-uni.qmd
@@ -38,17 +49,13 @@ book:
       - ica/ica-strings.qmd
       - ica/ica-data-import.qmd
       
-    - part: "Best Work"
+    - part: "Summary Sheets"
       chapters: 
-      - bw/exam_1.qmd
-      - bw/exam_2.qmd
-      - bw/solo_project.qmd
-      - bw/summary.qmd
-      - bw/bw-uni.qmd
-      - bw/bw-bi.qmd
-      - bw/bw-tri.qmd
-      - bw/bw-quad.qmd
-      - bw/bw-spatial.qmd
+      - summary/summary.qmd
+      - summary/summary2.qmd
+     
+      
+
       
 format:
   html:
@@ -63,10 +70,14 @@ format:
     code-link: true
     code-line-numbers: true
     code-tools: true
+    code-fold: true
 
 execute:
   cache: false
   freeze: auto
+  echo: true
+  warning: false
+  error: false
 
 editor: 
   markdown:
